@@ -13,7 +13,9 @@ using namespace std;
 
 bool sortByNum(const Flight* const &lhs, const Flight* const &rhs)
 {
-  if(lhs == NULL || rhs == NULL)
+  if(lhs == NULL)
+    return false;
+  if(rhs == NULL)
     return true;
   return lhs->getFlightNumber() < rhs->getFlightNumber();
 }
@@ -23,6 +25,10 @@ Flights::Flights()
   size = 0;
   capacity = 2;
   flights = new Flight*[capacity];
+  for(int i = 0; i < capacity; i++)
+  {
+    flights[i] = new Flight();
+  }
   readFlights();
 } // readFlights()
 
@@ -39,9 +45,11 @@ void Flights::insert(Flight *in)
   }
   for(int i = 0; i < capacity; i++)
   {
-    if(flights[i] == NULL)
+    if(flights[i]->getFlightNumber() == -1)
     {
+      Flight *f = flights[i];
       flights[i] = in;
+      delete f;
       break;
     }
   }
