@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include <algorithm>
+#include <cstring>
 #include <vector>
 
 #include "flights.h"
@@ -17,8 +18,9 @@ bool sortByNum(const Flight &lhs, const Flight &rhs)
 
 Flights::Flights()
 {
+  size = 0;
   capacity = 2;
-  flights = new Flight[capacity];
+  flights.resize(capacity);
   readFlights();
 } // readFlights()
 
@@ -27,15 +29,11 @@ void Flights::insert(Flight *in)
   if(capacity == size)
   {
     capacity *= 2;
-    Flight *f = new Flight[capacity/2];
-    f = flights;
-    flights = new Flight[capacity];
-    copy(f, f + capacity/2, flights);
-    delete [] f;
+    flights.resize(capacity);
   }
-  flights[capacity - 1] = *in;
+  flights.push_back(*in);
   size++;
-  sort(flights, flights + capacity, sortByNum);
+  sort(flights.begin(), flights.end(), sortByNum);
 }
 
 void Flights::readFlights()
