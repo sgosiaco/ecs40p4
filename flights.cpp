@@ -33,8 +33,8 @@ void Flights::readFlights()
   for(i = 0; i < size; i++)
     flights[i].readFlight(inf);
 
-  sort(flights, flights + size, sortByNum);
   inf.close();
+  sort(flights, flights + size, sortByNum);
 }
 void Flights::addPassengers()
 {

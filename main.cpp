@@ -46,12 +46,12 @@ int getChoice()
 
 int main(int argc, char** argv)
 {
-  Flights *flights = new Flights();
+  Flights *flight = new Flights();
 
   while(getChoice() != DONE)
-    flights->addPassengers();
+    flight->addPassengers();
 
-  delete flights;
+  delete flight;
 
   return 0;
 } // main())

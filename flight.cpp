@@ -9,6 +9,26 @@
 using namespace std;
 #define TEN 10
 
+Flight& Flight::operator=(const Flight &in)
+{
+  if(&in == this)
+    return *this;
+  flightNum = in.flightNum;
+
+  if(in.origin)
+    strcpy(origin, in.origin);
+  else
+    strcpy(origin, "");
+
+  if(in.destination)
+    strcpy(destination, in.destination);
+  else
+    strcpy(destination, "");
+
+  plane = new Plane(*in.plane);
+  return *this;
+}
+
 void Flight::addPassenger()
 {
   if(!plane->addPassenger())

@@ -12,6 +12,22 @@ using namespace std;
 
 #define TRUE 1
 
+Plane::Plane(const Plane* const &in)
+{
+  rows = in->rows;
+  width = in->width;
+  reserved = in->reserved;
+  for(int row = 0; row < rows; row++)
+  {
+    for(int seatNum = 0; seatNum < width; seatNum++)
+    {
+      if(in->passengers[row][seatNum] != NULL)
+        strcpy(passengers[row][seatNum], in->passengers[row][seatNum]);
+      else
+        passengers[row][seatNum] = NULL;
+    }
+  }  // for row
+}
 
 Plane::Plane( ifstream &inf)
 {
