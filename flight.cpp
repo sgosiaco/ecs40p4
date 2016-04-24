@@ -24,8 +24,10 @@ Flight& Flight::operator=(const Flight &in)
     strcpy(destination, in.destination);
   else
     strcpy(destination, "");
-
-  plane = new Plane(*in.plane);
+  if(in.plane)
+    plane = new Plane(*in.plane);
+  else
+    plane = NULL;
   return *this;
 }
 
