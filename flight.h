@@ -22,9 +22,8 @@ public:
   void readFlight(ifstream &inf);
   void writeFlight(ofstream &outf) const;
 } ;
- 
+
 
 
 
 #endif	// FLIGHT_H
-
