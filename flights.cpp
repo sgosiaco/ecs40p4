@@ -13,13 +13,15 @@ using namespace std;
 
 bool sortByNum(const Flight* const &lhs, const Flight* const &rhs)
 {
+  if(lhs == NULL || rhs == NULL)
+    return true;
   return lhs->getFlightNumber() < rhs->getFlightNumber();
 }
 
 Flights::Flights()
 {
   size = 0;
-  capacity = 20;
+  capacity = 2;
   flights = new Flight*[capacity];
   readFlights();
 } // readFlights()
@@ -35,7 +37,14 @@ void Flights::insert(Flight *in)
     memcpy(flights, f, capacity/2);
     delete [] f;
   }
-  flights[capacity-1] = in;
+  for(int i = 0; i < capacity; i++)
+  {
+    if(flights[i] == NULL)
+    {
+      flights[i] = in;
+      break;
+    }
+  }
   size++;
   sort(flights, flights + capacity, sortByNum);
 }
