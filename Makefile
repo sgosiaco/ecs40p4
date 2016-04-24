@@ -4,7 +4,7 @@ airline.out : flight.o flights.o main.o plane.o utilities.o
 flight.o : flight.cpp flight.h
 	g++ -ansi -Wall -g -c flight.cpp
 
-flighs.o : flights.cpp flights.h
+flights.o : flights.cpp flights.h
 	g++ -ansi -Wall -g -c flights.cpp
 
 main.o : main.cpp flight.h utilities.h
