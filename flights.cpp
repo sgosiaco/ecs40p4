@@ -11,16 +11,16 @@
 
 using namespace std;
 
-bool sortByNum(const Flight &lhs, const Flight &rhs)
+bool sortByNum(const Flight* const &lhs, const Flight* const &rhs)
 {
-  return lhs.getFlightNumber() < rhs.getFlightNumber();
+  return lhs->getFlightNumber() < rhs->getFlightNumber();
 }
 
 Flights::Flights()
 {
   size = 0;
-  capacity = 2;
-  flights.resize(capacity);
+  capacity = 20;
+  flights = new Flight*[capacity];
   readFlights();
 } // readFlights()
 
@@ -28,12 +28,16 @@ void Flights::insert(Flight *in)
 {
   if(capacity == size)
   {
+    Flight **f = new Flight*[capacity];
     capacity *= 2;
-    flights.resize(capacity);
+    memcpy(f, flights, capacity/2);
+    flights = new Flight*[capacity];
+    memcpy(flights, f, capacity/2);
+    delete [] f;
   }
-  flights.push_back(*in);
+  flights[capacity-1] = in;
   size++;
-  sort(flights.begin(), flights.end(), sortByNum);
+  sort(flights, flights + capacity, sortByNum);
 }
 
 void Flights::readFlights()
@@ -59,7 +63,7 @@ void Flights::addPassengers()
   cout << "Flt# Origin               Destination\n";
 
   for(i = 0; i < size; i++)
-    flights[i].printFlightInfo();
+    flights[i]->printFlightInfo();
 
   do
   {
@@ -70,9 +74,9 @@ void Flights::addPassengers()
     {
 
       for(i = 0; i < size; i++)
-        if(flights[i].getFlightNumber() == flightNumber)
+        if(flights[i]->getFlightNumber() == flightNumber)
         {
-          flights[i].addPassenger();
+          flights[i]->addPassenger();
           break;
         }  // if found match of flight
 
@@ -95,7 +99,7 @@ Flights::~Flights()
   outf << size << endl;
 
   for(i = 0; i < size; i++)
-    flights[i].writeFlight(outf);
+    flights[i]->writeFlight(outf);
 
   outf.close();
 

@@ -13,7 +13,7 @@ class Flights
 private:
   int size;
   int capacity;
-  vector<Flight> flights;
+  Flight **flights;
 
 public:
   Flights();
