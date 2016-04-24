@@ -10,35 +10,41 @@
 
 using namespace std;
 
-bool sortByNum(const Flight* const &lhs, const Flight* const &rhs)
+bool sortByNum(const Flight &lhs, const Flight &rhs)
 {
-  return lhs->getFlightNumber() < rhs->getFlightNumber();
+  return lhs.getFlightNumber() < rhs.getFlightNumber();
 }
 
 Flights::Flights()
 {
   capacity = 2;
-  flights.resize(capacity);
+  flights = new Flight[capacity];
+  readFlights();
 } // readFlights()
 
 void Flights::insert(Flight *in)
 {
-  if(capacity <= size)
+  if(capacity == size)
   {
     capacity *= 2;
-    flights.resize(capacity);
+    Flight *f = new Flight[capacity/2];
+    f = flights;
+    flights = new Flight[capacity];
+    copy(f, f + capacity/2, flights);
+    delete [] f;
   }
-  flights.push_back(in);
-  sort(flights.begin(), flights.end(), sortByNum);
+  flights[capacity - 1] = *in;
+  size++;
+  sort(flights, flights + capacity, sortByNum);
 }
 
 void Flights::readFlights()
 {
-  int i;
+  int tSize;
   ifstream inf  ("reservations.txt");
-  inf >> size;
+  inf >> tSize;
 
-  for(i = 0; i < size; i++)
+  for(int i = 0; i < tSize; i++)
   {
     Flight *f = new Flight();
     f->readFlight(inf);
@@ -55,7 +61,7 @@ void Flights::addPassengers()
   cout << "Flt# Origin               Destination\n";
 
   for(i = 0; i < size; i++)
-    flights[i]->printFlightInfo();
+    flights[i].printFlightInfo();
 
   do
   {
@@ -66,9 +72,9 @@ void Flights::addPassengers()
     {
 
       for(i = 0; i < size; i++)
-        if(flights[i]->getFlightNumber() == flightNumber)
+        if(flights[i].getFlightNumber() == flightNumber)
         {
-          flights[i]->addPassenger();
+          flights[i].addPassenger();
           break;
         }  // if found match of flight
 
@@ -91,7 +97,7 @@ Flights::~Flights()
   outf << size << endl;
 
   for(i = 0; i < size; i++)
-    flights[i]->writeFlight(outf);
+    flights[i].writeFlight(outf);
 
   outf.close();
 

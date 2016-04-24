@@ -31,7 +31,7 @@ Flight& Flight::operator=(const Flight &in)
 
 Flight::Flight()
 {
-  flightNum = 0;
+  flightNum = -1;
   strcpy(origin, "");
   strcpy(destination, "");
   plane = NULL;
