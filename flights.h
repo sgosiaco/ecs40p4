@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "flight.h"
 
 using namespace std;
@@ -11,12 +12,13 @@ class Flights
 {
 private:
   int size;
-  Flight *flights;
+  int capacity;
+  vector<Flight*> flights;
 
 public:
   Flights();
   ~Flights();
-  void insert();
+  void insert(Flight *in);
   void readFlights();
   void addPassengers();
 } ;

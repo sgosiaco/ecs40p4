@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include <algorithm>
+#include <vector>
 
 #include "flights.h"
 #include "flight.h"
@@ -9,18 +10,26 @@
 
 using namespace std;
 
-bool sortByNum(const Flight &lhs, const Flight &rhs)
+bool sortByNum(const Flight* const &lhs, const Flight* const &rhs)
 {
-  return lhs.getFlightNumber() < rhs.getFlightNumber();
+  return lhs->getFlightNumber() < rhs->getFlightNumber();
 }
 
 Flights::Flights()
 {
-  readFlights();
+  capacity = 2;
+  flights.resize(capacity);
 } // readFlights()
 
-void Flights::insert()
+void Flights::insert(Flight *in)
 {
+  if(capacity <= size)
+  {
+    capacity *= 2;
+    flights.resize(capacity);
+  }
+  flights.push_back(in);
+  sort(flights.begin(), flights.end(), sortByNum);
 }
 
 void Flights::readFlights()
@@ -28,13 +37,16 @@ void Flights::readFlights()
   int i;
   ifstream inf  ("reservations.txt");
   inf >> size;
-  flights = new Flight[size];
 
   for(i = 0; i < size; i++)
-    flights[i].readFlight(inf);
+  {
+    Flight *f = new Flight();
+    f->readFlight(inf);
+    insert(f);
+    delete f;
+  }
 
   inf.close();
-  sort(flights, flights + size, sortByNum);
 }
 void Flights::addPassengers()
 {
@@ -43,7 +55,7 @@ void Flights::addPassengers()
   cout << "Flt# Origin               Destination\n";
 
   for(i = 0; i < size; i++)
-    flights[i].printFlightInfo();
+    flights[i]->printFlightInfo();
 
   do
   {
@@ -54,9 +66,9 @@ void Flights::addPassengers()
     {
 
       for(i = 0; i < size; i++)
-        if(flights[i].getFlightNumber() == flightNumber)
+        if(flights[i]->getFlightNumber() == flightNumber)
         {
-          flights[i].addPassenger();
+          flights[i]->addPassenger();
           break;
         }  // if found match of flight
 
@@ -79,9 +91,9 @@ Flights::~Flights()
   outf << size << endl;
 
   for(i = 0; i < size; i++)
-    flights[i].writeFlight(outf);
+    flights[i]->writeFlight(outf);
 
   outf.close();
 
-  delete [] flights;
+  delete [] &flights;
 }

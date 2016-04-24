@@ -12,24 +12,35 @@ using namespace std;
 
 #define TRUE 1
 
-Plane::Plane(const Plane* const &in)
+Plane::Plane(Plane const &in)
 {
-  rows = in->rows;
-  width = in->width;
-  reserved = in->reserved;
+  rows = in.rows;
+  width = in.width;
+  reserved = in.reserved;
+  passengers = new char** [rows];
+
+  for(int row = 0; row < rows; row++)
+  {
+    passengers[row] = new char*[width];
+
+    for(int seatNum = 0; seatNum < width; seatNum++)
+      passengers[row][seatNum] = NULL;
+  } // for each row
+
   for(int row = 0; row < rows; row++)
   {
     for(int seatNum = 0; seatNum < width; seatNum++)
     {
-      if(in->passengers[row][seatNum] != NULL)
-        strcpy(passengers[row][seatNum], in->passengers[row][seatNum]);
-      else
-        passengers[row][seatNum] = NULL;
+      if(in.passengers[row][seatNum] != NULL)
+      {
+        passengers[row][seatNum] = new char[strlen(in.passengers[row][seatNum]) + 1];
+        strcpy(passengers[row][seatNum], in.passengers[row][seatNum]);
+      }
     }
   }  // for row
 }
 
-Plane::Plane( ifstream &inf)
+Plane::Plane(ifstream &inf)
 {
   int row, numPassenger, seatNum;
   char seat, name[MAX_NAME_SIZE];

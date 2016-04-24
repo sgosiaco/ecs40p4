@@ -17,6 +17,7 @@ class Flight
 public:
   void addPassenger();
   ~Flight();
+  Flight();
   int getFlightNumber() const;
   void printFlightInfo() const;
   void readFlight(ifstream &inf);

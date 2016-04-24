@@ -29,6 +29,14 @@ Flight& Flight::operator=(const Flight &in)
   return *this;
 }
 
+Flight::Flight()
+{
+  flightNum = 0;
+  strcpy(origin, "");
+  strcpy(destination, "");
+  plane = NULL;
+}
+
 void Flight::addPassenger()
 {
   if(!plane->addPassenger())
