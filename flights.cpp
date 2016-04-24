@@ -27,7 +27,7 @@ Flights::Flights()
   flights = new Flight*[capacity];
   for(int i = 0; i < capacity; i++)
   {
-    flights[i] = new Flight();
+    flights[i] = NULL;
   }
   readFlights();
 } // readFlights()
@@ -36,24 +36,31 @@ void Flights::insert(Flight *in)
 {
   if(capacity == size)
   {
+    cout << "EQuAL\n";
     Flight **f = new Flight*[capacity];
     capacity *= 2;
-    memcpy(f, flights, capacity/2);
+    for(int i = 0; i < capacity/2; i++)
+      f[i] = flights[i];
     flights = new Flight*[capacity];
-    memcpy(flights, f, capacity/2);
+    for(int k = 0; k < capacity/2; k++)
+      flights[k] = f[k];
+    for(int l = capacity/2; l < capacity; l++)
+      flights[l] = NULL;
     delete [] f;
   }
   for(int i = 0; i < capacity; i++)
   {
-    if(flights[i]->getFlightNumber() == -1)
+    //cout << flights[i] << endl;
+    if(flights[i] == NULL)
     {
-      Flight *f = flights[i];
+      //Flight *f = flights[i];
       flights[i] = in;
-      delete f;
+      size++;
+      //delete f;
       break;
     }
   }
-  size++;
+  cout << size << endl;
   sort(flights, flights + capacity, sortByNum);
 }
 
@@ -68,7 +75,6 @@ void Flights::readFlights()
     Flight *f = new Flight();
     f->readFlight(inf);
     insert(f);
-    delete f;
   }
 
   inf.close();
