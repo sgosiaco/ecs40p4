@@ -1,12 +1,18 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <algorithm>
 
 #include "flights.h"
 #include "flight.h"
 #include "utilities.h"
 
 using namespace std;
+
+bool sortByNum(const Flight &lhs, const Flight &rhs)
+{
+  return lhs.getFlightNumber() < rhs.getFlightNumber();
+}
 
 Flights::Flights()
 {
@@ -27,6 +33,7 @@ void Flights::readFlights()
   for(i = 0; i < size; i++)
     flights[i].readFlight(inf);
 
+  sort(flights, flights + size, sortByNum);
   inf.close();
 }
 void Flights::addPassengers()
