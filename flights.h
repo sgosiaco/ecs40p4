@@ -3,30 +3,28 @@
 
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include "flight.h"
 
 using namespace std;
 
 class Flights
 {
-private:
-  int size;
-  int capacity;
-  Flight **flights;
-  void dble();
-public:
-  Flights();
-  ~Flights();
-  void insert(Flight *in);
-  void readFlights();
-  void addPassengers();
-  void addFlights();
-  void removePassengers();
-  void removeFlights();
+  static const int TWO = 2;
+  static const int TEN = 10;
+  private:
+    int size;
+    int capacity;
+    Flight **flights;
+    void dble();
+  public:
+    Flights();
+    ~Flights();
+    void insert(Flight *in);
+    void readFlights();
+    void addPassengers();
+    void addFlights();
+    void removePassengers();
+    void removeFlights();
 } ;
-
-
-
 
 #endif	// FLIGHTS_H

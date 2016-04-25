@@ -11,9 +11,6 @@
 
 using namespace std;
 
-#define TRUE 1
-#define TEN 10
-
 Plane::Plane()
 {
 
@@ -31,16 +28,16 @@ Plane::Plane(Plane const &in)
     passengers[row] = new int[width];
 
     for(int seatNum = 0; seatNum < width; seatNum++)
-      passengers[row][seatNum] = -1;
+      passengers[row][seatNum] = NEG;
   } // for each row
 
   for(int row = 0; row < rows; row++)
   {
     for(int seatNum = 0; seatNum < width; seatNum++)
     {
-      if(in.passengers[row][seatNum] != -1)
+      if(in.passengers[row][seatNum] != NEG)
         passengers[row][seatNum] = in.passengers[row][seatNum];
-    }
+    }//for
   }  // for row
 }//Copy const
 
@@ -58,8 +55,9 @@ Plane::Plane(ifstream &inf, int num)
     passengers[row] = new int[width];
 
     for(int seatNum = 0; seatNum < width; seatNum++)
-      passengers[row][seatNum] = -1;
+      passengers[row][seatNum] = NEG;
   } // for each row
+
   readIn(num);
 }  // Plane()
 
@@ -84,6 +82,7 @@ void Plane::readIn(int num)
       }//if match
     }//while not eof
   }//if file open
+
   in.close();
 }//readIn()
 
@@ -113,7 +112,7 @@ void Plane::addFlight()
     passengers[row] = new int[width];
 
     for(int seatNum = 0; seatNum < width; seatNum++)
-      passengers[row][seatNum] = -1;
+      passengers[row][seatNum] = NEG;
   } // for each row
 }//addFlight
 
@@ -137,7 +136,7 @@ int Plane::addPassenger(int num)
 
     while(cin.get() != '\n');
 
-    if(passengers[pass.row - FIRST_ROW][pass.seat - 'A'] == -1)
+    if(passengers[pass.row - FIRST_ROW][pass.seat - 'A'] == NEG)
       break;
 
     printf("That seat is already occupied.\nPlease try again.\n");
@@ -190,7 +189,7 @@ void Plane::showGrid() const
     printf("%2d   ", row + 1);
 
     for(seatNum = 0; seatNum < width; seatNum++)
-      if(passengers[row][seatNum] != -1)
+      if(passengers[row][seatNum] != NEG)
         putchar('X');
       else  // empty seat
         putchar('-');
@@ -215,33 +214,35 @@ void Plane::removePassenger(int num)
   {
     for(int seatNum = 0; seatNum < width; seatNum++)
     {
-      if(passengers[row][seatNum] != -1)
+      if(passengers[row][seatNum] != NEG)
       {
         in.seekg(passengers[row][seatNum] - sizeof(pass));
         in.read( (char *) &pass, sizeof(pass));
+
         if(strcmp(pass.name, n) == 0)
         {
-          pass.flightNum = -1;
+          pass.flightNum = NEG;
           in.seekp(passengers[row][seatNum] - sizeof(pass));
           in.write( (char *) &pass, sizeof(pass));
-          passengers[row][seatNum] = -1;
+          passengers[row][seatNum] = NEG;
         }//if match
       }//if not null
     }//for
   }//for
 
   in.close();
-}
+}//removePassenger()
 
 void Plane::showPassengers()
 {
   Passenger pass;
   fstream in("passengers2.dat", ios::binary | ios::in );
+
   for(int row = 0; row < rows; row++)
   {
     for(int seatNum = 0; seatNum < width; seatNum++)
     {
-      if(passengers[row][seatNum] != -1)
+      if(passengers[row][seatNum] != NEG)
       {
         in.seekg(passengers[row][seatNum] - sizeof(pass));
         in.read( (char *) &pass, sizeof(pass));
@@ -262,16 +263,17 @@ void Plane::removeFlight(int num)
   {
     for(int seatNum = 0; seatNum < width; seatNum++)
     {
-      if(passengers[row][seatNum] != -1)
+      if(passengers[row][seatNum] != NEG)
       {
         in.seekg(passengers[row][seatNum] - sizeof(pass));
         in.read( (char *) &pass, sizeof(pass));
+
         if(pass.flightNum == num)
         {
-          pass.flightNum = -1;
+          pass.flightNum = NEG;
           in.seekp(passengers[row][seatNum] - sizeof(pass));
           in.write( (char *) &pass, sizeof(pass));
-          passengers[row][seatNum] = -1;
+          passengers[row][seatNum] = NEG;
         }//if match
       }//if not null
     }//for
@@ -291,11 +293,11 @@ void Plane::writePlane(ofstream &outf, int num) const
   {
     for(int seatNum = 0; seatNum < width; seatNum++)
     {
-      if(passengers[row][seatNum] != -1)
+      if(passengers[row][seatNum] != NEG)
       {
         in.seekg(passengers[row][seatNum] - sizeof(pass));
         in.read( (char *) &pass, sizeof(pass));
-        
+
         if(pass.flightNum == num)
           out.write( (char *) &pass, sizeof(pass));
       }//if not null

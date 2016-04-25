@@ -23,7 +23,7 @@ bool sortByNum(const Flight* const &lhs, const Flight* const &rhs)
 Flights::Flights()
 {
   size = 0;
-  capacity = 2;
+  capacity = TWO;
   flights = new Flight*[capacity];
 
   for(int i = 0; i < capacity; i++)
@@ -34,7 +34,7 @@ void Flights::insert(Flight *in)
 {
   if(capacity == size)
   {
-    capacity *= 2;
+    capacity *= TWO;
     dble();
   }//if full
 
@@ -47,13 +47,13 @@ void Flights::insert(Flight *in)
       break;
     }//if null
   }//for
-  
+
   sort(flights, flights + capacity, sortByNum);
 }//insert()
 
 void Flights::dble()
 {
-  int old = capacity / 2;
+  int old = capacity / TWO;
   Flight **f = new Flight*[old];
 
   for(int i = 0; i < old; i++)
@@ -147,7 +147,7 @@ void Flights::removePassengers()
 
   cout << "\nFlight number of passenger remove: ";
   cin >> num;
-  cin.ignore(10, '\n');
+  cin.ignore(TEN, '\n');
 
   for(int i = 0; i < size; i++)
   {
@@ -170,7 +170,7 @@ void Flights::removeFlights()
 
   cout << "\nFlight number to remove: ";
   cin >> num;
-  cin.ignore(10, '\n');
+  cin.ignore(TEN, '\n');
 
   for(int i = 0; i < size; i++)
   {

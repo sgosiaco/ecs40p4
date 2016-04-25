@@ -7,9 +7,6 @@
 
 using namespace std;
 
-#define TEN 10
-#define ASCII_ZERO '0'
-
 int getNumber()
 {
   long long number = 0, OK = 1;
@@ -36,11 +33,10 @@ int getNumber()
 
   while(c != '\n')
     c = cin.get();
-    
+
   if(OK)
     return number;
   else  // invalid number
     return ERROR;
-  
-} // getNumber()
 
+} // getNumber()

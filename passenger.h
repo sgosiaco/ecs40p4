@@ -3,10 +3,10 @@
 #include <fstream>
 #include "plane.h"
 using namespace std;
-#define THIRTY 30
 
 class Passenger
 {
+  static const int THIRTY = 30;
   friend class Plane;
   private:
     short flightNum;

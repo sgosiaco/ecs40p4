@@ -7,11 +7,10 @@
 #include "flight.h"
 
 using namespace std;
-#define TEN 10
 
 Flight::Flight()
 {
-  flightNum = -1;
+  flightNum = NEG;
   strcpy(origin, "");
   strcpy(destination, "");
   plane = NULL;
@@ -60,7 +59,7 @@ void Flight::addFlight()
 void Flight::removeFlight()
 {
   plane->removeFlight(flightNum);
-  flightNum = -1;
+  flightNum = NEG;
 }//removeFlight
 
 int Flight::getFlightNumber() const
@@ -70,7 +69,7 @@ int Flight::getFlightNumber() const
 
 Flight::~Flight()
 {
-  if(flightNum != -1)
+  if(flightNum != NEG)
   {
     ofstream outf;
     outf.open("flights2.csv", ios::app);
@@ -78,6 +77,6 @@ Flight::~Flight()
     plane->writePlane(outf, flightNum);
     outf.close();
   }//if not remove flight
-  
+
   delete plane;
 }  // ~Flight()

@@ -11,8 +11,8 @@
 
 using namespace std;
 
-#define DONE 0
-#define MAX_CHOICE 4
+static const int DONE = 0;
+static const int MAX_CHOICE = 4;
 
 enum
 {
@@ -21,7 +21,7 @@ enum
   REMOVE_PASSENGER,
   ADD_FLIGHT,
   REMOVE_FLIGHT
-};//enum
+};  //enum
 
 int getChoice()
 {
