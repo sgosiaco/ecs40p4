@@ -1,6 +1,10 @@
 #ifndef PLANE_H
 #define	PLANE_H
+
 #include <fstream>
+
+#include "utilities.h"
+#include "passenger.h"
 
 using namespace std;
 

@@ -1,13 +1,12 @@
 // Author: Sean Davis
-
+// Edited by: Sean Gosiaco
 #include <string.h>
 #include <ctype.h>
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+
 #include "plane.h"
-#include "utilities.h"
-#include "passenger.h"
 
 using namespace std;
 

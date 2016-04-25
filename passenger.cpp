@@ -1,3 +1,4 @@
+// Author: Sean Gosiaco
 #include <cstring>
 #include <iostream>
 
@@ -34,7 +35,7 @@ void Passenger::copyPassengers()
         outf.write( (char*) &temp, sizeof(temp));
     }//while not eof
   }//if files open
-  
+
   inf.close();
   outf.close();
 }//copyPassengers();

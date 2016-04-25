@@ -1,8 +1,9 @@
 // Author: Sean Davis
-
+// Edited by: Sean Gosiaco
 #include <iostream>
 #include <ctype.h>
 #include <limits.h>
+
 #include "utilities.h"
 
 using namespace std;

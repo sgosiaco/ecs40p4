@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "flight.h"
+#include "utilities.h"
 
 using namespace std;
 

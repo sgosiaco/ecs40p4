@@ -1,7 +1,9 @@
 #ifndef PASSENGER_H
 #define	PASSENGER_H
 #include <fstream>
+
 #include "plane.h"
+
 using namespace std;
 
 class Passenger

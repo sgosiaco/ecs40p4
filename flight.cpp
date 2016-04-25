@@ -1,9 +1,10 @@
 // Author: Sean Davis
-
+// Edited by: Sean Gosiaco
 #include <string.h>
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+
 #include "flight.h"
 
 using namespace std;

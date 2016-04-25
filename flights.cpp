@@ -1,3 +1,4 @@
+// Author: Sean Gosiaco
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -5,8 +6,6 @@
 #include <cstring>
 
 #include "flights.h"
-#include "flight.h"
-#include "utilities.h"
 
 using namespace std;
 
