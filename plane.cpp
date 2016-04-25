@@ -240,13 +240,39 @@ void Plane::removePassenger(int num)
   in.close();
 }
 
+void Plane::removeFlight(int num)
+{
+  fstream in("passengers2.dat", ios::binary | ios::in | ios::out);
+  Passenger pass;
+
+  for(int row = 0; row < rows; row++)
+  {
+    for(int seatNum = 0; seatNum < width; seatNum++)
+    {
+      if(passengers[row][seatNum] != -1)
+      {
+        in.seekg(passengers[row][seatNum] - sizeof(pass));
+        in.read( (char *) &pass, sizeof(pass));
+        if(pass.flightNum == num)
+        {
+          pass.flightNum = -1;
+          in.seekp(passengers[row][seatNum] - sizeof(pass));
+          in.write( (char *) &pass, sizeof(pass));
+          passengers[row][seatNum] = -1;
+        }
+      }
+    }
+  }
+  in.close();
+}
+
 void Plane::writePlane(ofstream &outf, int num) const
 {
   outf << rows << ',' << width << endl;
   fstream out("passengers3.dat", ios::binary | ios::out | ios::app);
   fstream in("passengers2.dat", ios::binary | ios::in);
   Passenger pass;
-  cout << "PLANE:" << num << endl;
+
   for(int row = 0; row < rows; row++)
   {
     for(int seatNum = 0; seatNum < width; seatNum++)

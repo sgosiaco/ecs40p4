@@ -29,6 +29,11 @@ void Flight::removePassenger()
   plane->removePassenger(flightNum);
 }
 
+void Flight::removeFlight()
+{
+  plane->removeFlight(flightNum);
+}
+
 void Flight::addFlight()
 {
   cout << "\nFlight number to add: ";

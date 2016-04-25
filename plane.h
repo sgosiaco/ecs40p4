@@ -24,6 +24,7 @@ public:
   void writePlane(ofstream &outf, int num) const;
   void addFlight();
   void removePassenger(int num);
+  void removeFlight(int num);
 }; // class Plane
 
 #endif	// PLANE_H

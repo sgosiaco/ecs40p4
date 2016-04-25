@@ -23,6 +23,7 @@ public:
   void readFlight(ifstream &inf);
   void addFlight();
   void removePassenger();
+  void removeFlight();
 } ;
 
 

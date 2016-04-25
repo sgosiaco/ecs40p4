@@ -23,6 +23,7 @@ public:
   void addPassengers();
   void addFlights();
   void removePassengers();
+  void removeFlights();
 } ;
 
 

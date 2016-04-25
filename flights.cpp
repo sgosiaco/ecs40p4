@@ -147,6 +147,31 @@ void Flights::removePassengers()
   }
 }
 
+void Flights::removeFlights()
+{
+  int num;
+  cout << "Existing Flights:\n\n";
+  cout << "Flt# Origin               Destination\n";
+
+  for(int i = 0; i < size; i++)
+    flights[i]->printFlightInfo();
+
+  cout << "\nFlight number to remove: ";
+  cin >> num;
+  cin.ignore(10, '\n');
+  for(int i = 0; i < size; i++)
+  {
+    if(flights[i]->getFlightNumber() == num)
+    {
+      flights[i]->removeFlight();
+      delete flights[i];
+      size--;
+      sort(flights, flights + capacity, sortByNum);
+      break;
+    }
+  }
+}
+
 Flights::~Flights()
 {
   fstream out("passengers3.dat", ios::binary | ios::out | ios::trunc);

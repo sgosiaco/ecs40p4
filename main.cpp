@@ -76,7 +76,7 @@ int main(int argc, char** argv)
         flight->addFlights();
         break;
       case REMOVE_FLIGHT:
-        //flight->removeFlights();
+        flight->removeFlights();
         break;
     }
   }
