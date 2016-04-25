@@ -14,6 +14,15 @@ using namespace std;
 #define DONE 0
 #define MAX_CHOICE 4
 
+enum
+{
+  EXIT,
+  ADD_PASSENGER,
+  REMOVE_PASSENGER,
+  ADD_FLIGHT,
+  REMOVE_FLIGHT
+};
+
 int getChoice()
 {
   int choice;
@@ -53,23 +62,26 @@ int main(int argc, char** argv)
   Flights *flight = new Flights();
   flight->readFlights();
 
-  while((in = getChoice()) != DONE)
+  while((in = getChoice()) != EXIT)
   {
     switch(in)
     {
-      case 1:
+      case ADD_PASSENGER:
         flight->addPassengers();
         break;
-      case 2:
+      case REMOVE_PASSENGER:
         flight->removePassengers();
         break;
-      case 3:
+      case ADD_FLIGHT:
         flight->addFlights();
+        break;
+      case REMOVE_FLIGHT:
+        //flight->removeFlights();
         break;
     }
   }
 
   delete flight;
-  Passenger::read();
+  //Passenger::read();
   return 0;
 } // main())
