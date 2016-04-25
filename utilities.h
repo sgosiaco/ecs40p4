@@ -3,6 +3,7 @@
 
 static const int ERROR = -1;
 static const int TEN = 10;
+static const int ASCII_ZERO = '0';
 
 int getNumber();
 
