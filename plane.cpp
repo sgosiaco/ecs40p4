@@ -17,7 +17,7 @@ using namespace std;
 Plane::Plane()
 {
 
-}
+}//Default
 
 Plane::Plane(Plane const &in)
 {
@@ -42,7 +42,7 @@ Plane::Plane(Plane const &in)
         passengers[row][seatNum] = in.passengers[row][seatNum];
     }
   }  // for row
-}
+}//Copy const
 
 Plane::Plane(ifstream &inf, int num)
 {
@@ -60,27 +60,32 @@ Plane::Plane(ifstream &inf, int num)
     for(int seatNum = 0; seatNum < width; seatNum++)
       passengers[row][seatNum] = -1;
   } // for each row
+  readIn(num);
+}  // Plane()
 
+void Plane::readIn(int num)
+{
   fstream in("passengers2.dat", ios::binary | ios::in);
+
   if(in.is_open())
   {
     while(!in.eof())
     {
       Passenger pass;
       in.read( (char *) &pass, sizeof(pass));
+
       if(pass.flightNum == num)
       {
         if(!in.eof())
         {
           passengers[pass.row - 1][pass.seat - 'A'] = in.tellg();
           reserved++;
-        }
-      }
-    }
-  }
+        }//if not eof
+      }//if match
+    }//while not eof
+  }//if file open
   in.close();
-}  // Plane()
-
+}//readIn()
 
 Plane::~Plane()
 {
@@ -110,7 +115,7 @@ void Plane::addFlight()
     for(int seatNum = 0; seatNum < width; seatNum++)
       passengers[row][seatNum] = -1;
   } // for each row
-}
+}//addFlight
 
 int Plane::addPassenger(int num)
 {
@@ -121,9 +126,9 @@ int Plane::addPassenger(int num)
     return 0;  // false
 
   cout << "Please enter the name of the passenger: ";
-  //cin.getline(pass.name, MAX_NAME_SIZE);
-  cin >> pass.name;
-  cin.ignore(10, '\n');
+  cin.getline(pass.name, MAX_NAME_SIZE);
+  //cin >> pass.name;
+  //cin.ignore(10, '\n');
   showGrid();
 
   while(TRUE)

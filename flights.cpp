@@ -17,13 +17,14 @@ bool sortByNum(const Flight* const &lhs, const Flight* const &rhs)
   if(rhs == NULL)
     return true;
   return lhs->getFlightNumber() < rhs->getFlightNumber();
-}
+}//sortByNum
 
 Flights::Flights()
 {
   size = 0;
   capacity = 2;
   flights = new Flight*[capacity];
+
   for(int i = 0; i < capacity; i++)
     flights[i] = NULL;
 } // readFlights()
@@ -32,8 +33,10 @@ void Flights::insert(Flight *in)
 {
   if(capacity == size)
   {
+    capacity *= 2;
     dble();
-  }
+  }//if full
+
   for(int i = 0; i < capacity; i++)
   {
     if(flights[i] == NULL)
@@ -41,25 +44,30 @@ void Flights::insert(Flight *in)
       flights[i] = in;
       size++;
       break;
-    }
-  }
+    }//if null
+  }//for
   sort(flights, flights + capacity, sortByNum);
-}
+}//insert()
 
 void Flights::dble()
 {
-  Flight **f = new Flight*[capacity];
-  capacity *= 2;
-  for(int i = 0; i < capacity/2; i++)
+  int old = capacity / 2;
+  Flight **f = new Flight*[old];
+
+  for(int i = 0; i < old; i++)
     f[i] = flights[i];
+
   delete [] flights;
   flights = new Flight*[capacity];
-  for(int k = 0; k < capacity/2; k++)
+
+  for(int k = 0; k < old; k++)
     flights[k] = f[k];
-  for(int l = capacity/2; l < capacity; l++)
+
+  for(int l = old; l < capacity; l++)
     flights[l] = NULL;
+    
   delete [] f;
-}
+}//dble()
 
 void Flights::readFlights()
 {
@@ -72,10 +80,11 @@ void Flights::readFlights()
     Flight *f = new Flight();
     f->readFlight(inf);
     insert(f);
-  }
+  }//for
 
   inf.close();
-}
+}//readFlights()
+
 void Flights::addPassengers()
 {
   int i, flightNumber;
@@ -123,7 +132,7 @@ void Flights::addFlights()
   Flight *f = new Flight();
   f->addFlight();
   insert(f);
-}
+}//addFlights()
 
 void Flights::removePassengers()
 {
@@ -137,15 +146,16 @@ void Flights::removePassengers()
   cout << "\nFlight number of passenger remove: ";
   cin >> num;
   cin.ignore(10, '\n');
+
   for(int i = 0; i < size; i++)
   {
     if(flights[i]->getFlightNumber() == num)
     {
       flights[i]->removePassenger();
       break;
-    }
-  }
-}
+    }//if match
+  }//for
+}//removePassengers()
 
 void Flights::removeFlights()
 {
@@ -159,6 +169,7 @@ void Flights::removeFlights()
   cout << "\nFlight number to remove: ";
   cin >> num;
   cin.ignore(10, '\n');
+
   for(int i = 0; i < size; i++)
   {
     if(flights[i]->getFlightNumber() == num)
@@ -169,9 +180,9 @@ void Flights::removeFlights()
       flights[i] = NULL;
       sort(flights, flights + capacity, sortByNum);
       break;
-    }
-  }
-}
+    }//if match
+  }//for
+}//removeFlights()
 
 Flights::~Flights()
 {
@@ -186,4 +197,4 @@ Flights::~Flights()
   outf.close();
 
   delete[] flights;
-}
+}//~Flights()

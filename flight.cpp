@@ -15,7 +15,22 @@ Flight::Flight()
   strcpy(origin, "");
   strcpy(destination, "");
   plane = NULL;
-}
+}//Flight()
+
+void Flight::readFlight(ifstream &inf)
+{
+  inf >> flightNum;
+  inf.ignore(TEN, ',');
+  inf.getline(origin, MAX_CITY_LENGTH, ',');
+  inf.getline(destination, MAX_CITY_LENGTH, ',');
+  plane = new Plane(inf, flightNum);
+}  // readFlight()
+
+void Flight::printFlightInfo() const
+{
+  cout << left << setw(4) << flightNum << ' ' << setw(20)
+    << origin << ' '  << destination << endl;
+}  // printFlightInfo()
 
 void Flight::addPassenger()
 {
@@ -27,13 +42,7 @@ void Flight::addPassenger()
 void Flight::removePassenger()
 {
   plane->removePassenger(flightNum);
-}
-
-void Flight::removeFlight()
-{
-  plane->removeFlight(flightNum);
-  flightNum = -1;
-}
+}//removePassenger()
 
 void Flight::addFlight()
 {
@@ -46,7 +55,18 @@ void Flight::addFlight()
   cin.getline(destination, MAX_CITY_LENGTH);
   plane = new Plane();
   plane->addFlight();
-}
+}//addFlight()
+
+void Flight::removeFlight()
+{
+  plane->removeFlight(flightNum);
+  flightNum = -1;
+}//removeFlight
+
+int Flight::getFlightNumber() const
+{
+  return flightNum;
+}  // getFlightNumber()
 
 Flight::~Flight()
 {
@@ -57,29 +77,6 @@ Flight::~Flight()
     outf << flightNum << ',' << origin << ',' << destination << ',' << flush;
     plane->writePlane(outf, flightNum);
     outf.close();
-  }
+  }//if not remove flight
   delete plane;
-}  // freeFlight()
-
-
-int Flight::getFlightNumber() const
-{
-  return flightNum;
-}  // getFlightNumber()
-
-
-void Flight::printFlightInfo() const
-{
-  cout << left << setw(4) << flightNum << ' ' << setw(20)
-    << origin << ' '  << destination << endl;
-}  // printFlightInfo()
-
-
-void Flight::readFlight(ifstream &inf)
-{
-  inf >> flightNum;
-  inf.ignore(TEN, ',');
-  inf.getline(origin, MAX_CITY_LENGTH, ',');
-  inf.getline(destination, MAX_CITY_LENGTH, ',');
-  plane = new Plane(inf, flightNum);
-}  // readFlight()
+}  // ~Flight()

@@ -16,15 +16,16 @@ class Plane
   int getRow() const;
   void showGrid() const;
 public:
-  Plane(ifstream &inf, int num);
-  ~Plane();
   Plane();
   Plane(Plane const &in);
+  Plane(ifstream &inf, int num);
+  ~Plane();
+  void readIn(int num);
   int addPassenger(int num);
-  void writePlane(ofstream &outf, int num) const;
-  void addFlight();
   void removePassenger(int num);
+  void addFlight();
   void removeFlight(int num);
+  void writePlane(ofstream &outf, int num) const;
 }; // class Plane
 
 #endif	// PLANE_H
