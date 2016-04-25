@@ -29,7 +29,7 @@ int getChoice()
   cout << "\nECS Flight Reservation Menu\n";
   cout << "0. Exit.\n";
   cout << "1. Add Passenger.\n2. Remove Passenger.\n";
-  cout << "3. Add Flight.\n4. Remove Flight\n";
+  cout << "3. Add Flight.\n4. Remove Flight.\n";
 
   do
   {

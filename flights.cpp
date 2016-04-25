@@ -134,7 +134,7 @@ void Flights::removePassengers()
   for(int i = 0; i < size; i++)
     flights[i]->printFlightInfo();
 
-  cout << "\nFlight number of passenger to remove: ";
+  cout << "\nFlight number of passenger remove: ";
   cin >> num;
   cin.ignore(10, '\n');
   for(int i = 0; i < size; i++)
