@@ -18,9 +18,12 @@ class Plane
 public:
   Plane(ifstream &inf, int num);
   ~Plane();
+  Plane();
   Plane(Plane const &in);
   int addPassenger(int num);
   void writePlane(ofstream &outf, int num) const;
+  void addFlight();
+  void removePassenger(int num);
 }; // class Plane
 
 #endif	// PLANE_H

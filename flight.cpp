@@ -9,34 +9,12 @@
 using namespace std;
 #define TEN 10
 
-Flight& Flight::operator=(const Flight &in)
-{
-  if(&in == this)
-    return *this;
-  flightNum = in.flightNum;
-
-  if(in.origin)
-    strcpy(origin, in.origin);
-  else
-    strcpy(origin, "");
-
-  if(in.destination)
-    strcpy(destination, in.destination);
-  else
-    strcpy(destination, "");
-  //if(in.plane)
-    //plane = new Plane(*in.plane);
-  //else
-    //plane = NULL;
-  return *this;
-}
-
 Flight::Flight()
 {
   flightNum = -1;
   strcpy(origin, "");
   strcpy(destination, "");
-  //plane = NULL;
+  plane = NULL;
 }
 
 void Flight::addPassenger()
@@ -46,6 +24,23 @@ void Flight::addPassenger()
 
 }  // addPassenger()
 
+void Flight::removePassenger()
+{
+  plane->removePassenger(flightNum);
+}
+
+void Flight::addFlight()
+{
+  cout << "\nFlight number to add: ";
+  cin >> flightNum;
+  cin.ignore(TEN, '\n');
+  cout << "Origin: ";
+  cin.getline(origin, MAX_CITY_LENGTH);
+  cout << "Destination: ";
+  cin.getline(destination, MAX_CITY_LENGTH);
+  plane = new Plane();
+  plane->addFlight();
+}
 
 Flight::~Flight()
 {
@@ -71,7 +66,7 @@ void Flight::printFlightInfo() const
 }  // printFlightInfo()
 
 
-void Flight::readFlight( ifstream &inf)
+void Flight::readFlight(ifstream &inf)
 {
   inf >> flightNum;
   inf.ignore(TEN, ',');

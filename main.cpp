@@ -12,14 +12,15 @@
 using namespace std;
 
 #define DONE 0
-#define MAX_CHOICE 1
+#define MAX_CHOICE 4
 
 int getChoice()
 {
   int choice;
   cout << "\nECS Flight Reservation Menu\n";
   cout << "0. Exit.\n";
-  cout << "1. Add Passenger.\n";
+  cout << "1. Add Passenger.\n2. Remove Passenger.\n";
+  cout << "3. Add Flight.\n4. Remove Flight\n";
 
   do
   {
@@ -47,12 +48,26 @@ int getChoice()
 
 int main(int argc, char** argv)
 {
+  int in = 0;
   Passenger::copyPassengers();
   Flights *flight = new Flights();
   flight->readFlights();
 
-  while(getChoice() != DONE)
-    flight->addPassengers();
+  while((in = getChoice()) != DONE)
+  {
+    switch(in)
+    {
+      case 1:
+        flight->addPassengers();
+        break;
+      case 2:
+        flight->removePassengers();
+        break;
+      case 3:
+        flight->addFlights();
+        break;
+    }
+  }
 
   delete flight;
   Passenger::read();

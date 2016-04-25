@@ -32,17 +32,7 @@ void Flights::insert(Flight *in)
 {
   if(capacity == size)
   {
-    Flight **f = new Flight*[capacity];
-    capacity *= 2;
-    for(int i = 0; i < capacity/2; i++)
-      f[i] = flights[i];
-    delete [] flights;
-    flights = new Flight*[capacity];
-    for(int k = 0; k < capacity/2; k++)
-      flights[k] = f[k];
-    for(int l = capacity/2; l < capacity; l++)
-      flights[l] = NULL;
-    delete [] f;
+    dble();
   }
   for(int i = 0; i < capacity; i++)
   {
@@ -54,6 +44,21 @@ void Flights::insert(Flight *in)
     }
   }
   sort(flights, flights + capacity, sortByNum);
+}
+
+void Flights::dble()
+{
+  Flight **f = new Flight*[capacity];
+  capacity *= 2;
+  for(int i = 0; i < capacity/2; i++)
+    f[i] = flights[i];
+  delete [] flights;
+  flights = new Flight*[capacity];
+  for(int k = 0; k < capacity/2; k++)
+    flights[k] = f[k];
+  for(int l = capacity/2; l < capacity; l++)
+    flights[l] = NULL;
+  delete [] f;
 }
 
 void Flights::readFlights()
@@ -107,8 +112,45 @@ void Flights::addPassengers()
   }  while((flightNumber != 0 && i == size) || flightNumber == ERROR);
 }  // addPassenger()
 
+void Flights::addFlights()
+{
+  cout << "Existing Flights:\n\n";
+  cout << "Flt# Origin               Destination\n";
+
+  for(int i = 0; i < size; i++)
+    flights[i]->printFlightInfo();
+
+  Flight *f = new Flight();
+  f->addFlight();
+  insert(f);
+}
+
+void Flights::removePassengers()
+{
+  int num;
+  cout << "Existing Flights:\n\n";
+  cout << "Flt# Origin               Destination\n";
+
+  for(int i = 0; i < size; i++)
+    flights[i]->printFlightInfo();
+
+  cout << "\nFlight number of passenger to remove: ";
+  cin >> num;
+  cin.ignore(10, '\n');
+  for(int i = 0; i < size; i++)
+  {
+    if(flights[i]->getFlightNumber() == num)
+    {
+      flights[i]->removePassenger();
+      break;
+    }
+  }
+}
+
 Flights::~Flights()
 {
+  fstream out("passengers3.dat", ios::binary | ios::out | ios::trunc);
+  out.close();
   ofstream outf("flights2.csv");
   outf << size << endl;
 

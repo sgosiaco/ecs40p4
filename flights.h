@@ -14,13 +14,15 @@ private:
   int size;
   int capacity;
   Flight **flights;
-
+  void dble();
 public:
   Flights();
   ~Flights();
   void insert(Flight *in);
   void readFlights();
   void addPassengers();
+  void addFlights();
+  void removePassengers();
 } ;
 
 

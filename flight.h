@@ -21,7 +21,8 @@ public:
   int getFlightNumber() const;
   void printFlightInfo() const;
   void readFlight(ifstream &inf);
-  Flight& operator=(const Flight &in);
+  void addFlight();
+  void removePassenger();
 } ;
 
 
