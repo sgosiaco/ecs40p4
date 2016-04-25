@@ -18,7 +18,7 @@ int getNumber()
   {
     do
     {
-      number = number * TEN + c - ASCII_ZERO;
+      number = number * TEN + c - '0';
       c = cin.get();
     }  while(isdigit(c) && number <= INT_MAX);
 

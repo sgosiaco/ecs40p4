@@ -205,10 +205,10 @@ void Plane::removePassenger(int num)
   cout << "Passengers on Flight #" << num << endl;
   fstream in("passengers2.dat", ios::binary | ios::in | ios::out);
   Passenger pass;
-  char n[30];
+  char n[MAX_NAME_SIZE];
   showPassengers();
   cout << "\nName of passenger to remove: ";
-  cin.getline(n, 30);
+  cin.getline(n, MAX_NAME_SIZE);
 
   for(int row = 0; row < rows; row++)
   {
