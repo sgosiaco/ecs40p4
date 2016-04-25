@@ -54,7 +54,7 @@ int main(int argc, char** argv)
   while(getChoice() != DONE)
     flight->addPassengers();
 
-  delete flight;
+  delete &flight;
   Passenger::read();
   return 0;
 } // main())
