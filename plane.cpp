@@ -89,7 +89,8 @@ Plane::~Plane()
 int Plane::addPassenger(int num)
 {
   Passenger pass;
-
+  pass.flightNum = num;
+  
   if(reserved == rows * width)
     return 0;  // false
 

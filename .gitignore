@@ -2,3 +2,6 @@ reservations2.txt
 airline.out
 *.o
 *.gch
+flights2.csv
+passengers2.dat
+passengers3.dat
