@@ -58,7 +58,6 @@ void Flights::insert(Flight *in)
 void Flights::readFlights()
 {
   int tSize;
-  //ifstream inf  ("reservations.txt");
   ifstream inf("flights.csv");
   inf >> tSize;
 
@@ -116,7 +115,6 @@ Flights::~Flights()
 
   for(i = 0; i < size; i++)
     delete flights[i];
-    //flights[i]->writeFlight(outf);
 
   outf.close();
 

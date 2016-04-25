@@ -3,7 +3,7 @@
 #include <fstream>
 
 using namespace std;
-#define MAX_NAME_SIZE 80
+#define MAX_NAME_SIZE 30
 #define FIRST_ROW 1
 #define FIRST_SEAT 'A'
 
@@ -20,7 +20,7 @@ public:
   ~Plane();
   Plane(Plane const &in);
   int addPassenger(int num);
-  void writePlane(ofstream &outf) const;
+  void writePlane(ofstream &outf, int num) const;
 }; // class Plane
 
 #endif	// PLANE_H

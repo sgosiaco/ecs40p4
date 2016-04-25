@@ -7,6 +7,7 @@
 #include "flights.h"
 #include "flight.h"
 #include "utilities.h"
+#include "passenger.h"
 
 using namespace std;
 
@@ -46,6 +47,7 @@ int getChoice()
 
 int main(int argc, char** argv)
 {
+  Passenger::copyPassengers();
   Flights *flight = new Flights();
   flight->readFlights();
 
@@ -53,6 +55,6 @@ int main(int argc, char** argv)
     flight->addPassengers();
 
   delete flight;
-
+  Passenger::read();
   return 0;
 } // main())

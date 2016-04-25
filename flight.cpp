@@ -49,10 +49,11 @@ void Flight::addPassenger()
 
 Flight::~Flight()
 {
-  char c = ',';
   ofstream outf;
   outf.open("flights2.csv", ios::app);
-  outf << flightNum << c << origin << c << destination << c << flush;
+  outf << flightNum << ',' << origin << ',' << destination << ',' << flush;
+  plane->writePlane(outf, flightNum);
+  outf.close();
   delete plane;
 }  // freeFlight()
 
@@ -77,10 +78,4 @@ void Flight::readFlight( ifstream &inf)
   inf.getline(origin, MAX_CITY_LENGTH, ',');
   inf.getline(destination, MAX_CITY_LENGTH, ',');
   plane = new Plane(inf, flightNum);
-}  // readFlight()
-
-
-void Flight::writeFlight( ofstream &outf) const
-{
-  //plane->writePlane(outf);
 }  // readFlight()

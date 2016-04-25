@@ -56,30 +56,26 @@ Plane::Plane(ifstream &inf, int num)
       passengers[row][seatNum] = -1;
   } // for each row
 
-  fstream in("passengers.dat", ios::binary | ios::in);
+  fstream in("passengers2.dat", ios::binary | ios::in);
   if(in.is_open())
   {
-    while(!inf.eof())
+    while(!in.eof())
     {
       Passenger pass;
-      inf.read( (char *) &pass, sizeof(pass));
-      cout << pass.flightNum << endl;
+      in.read( (char *) &pass, sizeof(pass));
       if(pass.flightNum == num)
       {
-        passengers[pass.row - 1][pass.seat - 'A'] = inf.tellg();
+        passengers[pass.row - 1][pass.seat - 'A'] = in.tellg();
         reserved++;
       }
     }
   }
+  in.close();
 }  // Plane()
 
 
 Plane::~Plane()
 {
-  char c = ',';
-  ofstream outf;
-  outf.open("flights2.csv", ios::app);
-  outf << rows << c << width << endl;
   for(int row = 0; row < rows; row++)
   {
     delete [] passengers[row];
@@ -92,36 +88,35 @@ Plane::~Plane()
 
 int Plane::addPassenger(int num)
 {
-  //int row, seatNum;
-  char name[MAX_NAME_SIZE];
+  Passenger pass;
 
   if(reserved == rows * width)
     return 0;  // false
 
   cout << "Please enter the name of the passenger: ";
-  cin.getline(name, MAX_NAME_SIZE);
+  cin.getline(pass.name, MAX_NAME_SIZE);
   showGrid();
-  return true;
 
-  /**
   while(TRUE)
   {
-    row = getRow();
+    pass.row = getRow();
     cout << "Please enter the seat letter you wish to reserve: ";
-    seatNum = cin.get() - FIRST_SEAT;
+    pass.seat = cin.get();
 
     while(cin.get() != '\n');
 
-    if(passengers[row - FIRST_ROW][seatNum] == -1)
+    if(passengers[pass.row - FIRST_ROW][pass.seat - 'A'] == -1)
       break;
 
     printf("That seat is already occupied.\nPlease try again.\n");
   } // while occupied seat
 
-  passengers[row - FIRST_ROW][seatNum] = 0;
+  fstream out("passengers2.dat", ios::binary | ios::out | ios::app);
+  out.write( (char *) &pass, sizeof(pass));
+  passengers[pass.row - FIRST_ROW][pass.seat - 'A'] = out.tellg();
   reserved++;
+  out.close();
   return 1;
-  **/
 }  // addPassenger()
 
 
@@ -175,14 +170,25 @@ void Plane::showGrid() const
 }  // showGrid()
 
 
-void Plane::writePlane(ofstream &outf) const
+void Plane::writePlane(ofstream &outf, int num) const
 {
-  int row, seatNum;
-  outf << rows << ' ' << width << ' ' << reserved << endl;
+  outf << rows << ',' << width << endl;
+  fstream out("passengers3.dat", ios::binary | ios::out);
+  fstream in("passengers2.dat", ios::binary | ios::in);
+  Passenger pass;
 
-  for(row = 0; row < rows; row++)
-    for(seatNum = 0; seatNum < width; seatNum++)
+  for(int row = 0; row < rows; row++)
+  {
+    for(int seatNum = 0; seatNum < width; seatNum++)
+    {
       if(passengers[row][seatNum] != -1)
-        outf << row + FIRST_ROW << char(seatNum + FIRST_SEAT) << ' '
-          << passengers[row][seatNum] << endl;
+      {
+        in.seekg(passengers[row][seatNum]);
+        in.read( (char *) &pass, sizeof(pass));
+        out.write( (char *) &pass, sizeof(pass));
+      }
+    }
+  }
+  in.close();
+  out.close();
 }  // readPlane()

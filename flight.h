@@ -21,7 +21,6 @@ public:
   int getFlightNumber() const;
   void printFlightInfo() const;
   void readFlight(ifstream &inf);
-  void writeFlight(ofstream &outf) const;
   Flight& operator=(const Flight &in);
 } ;
 
