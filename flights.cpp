@@ -36,7 +36,6 @@ void Flights::insert(Flight *in)
     capacity *= 2;
     for(int i = 0; i < capacity/2; i++)
       f[i] = flights[i];
-    delete [] flights;
     flights = new Flight*[capacity];
     for(int k = 0; k < capacity/2; k++)
       flights[k] = f[k];
