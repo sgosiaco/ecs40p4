@@ -174,7 +174,7 @@ void Plane::showGrid() const
 void Plane::writePlane(ofstream &outf, int num) const
 {
   outf << rows << ',' << width << endl;
-  fstream out("passengers3.dat", ios::binary | ios::out | ios::app);
+  fstream out("passengers3.dat", ios::binary | ios::out | ios::app );
   fstream in("passengers2.dat", ios::binary | ios::in);
   Passenger pass;
 
@@ -184,7 +184,7 @@ void Plane::writePlane(ofstream &outf, int num) const
     {
       if(passengers[row][seatNum] != -1)
       {
-        in.seekg(passengers[row][seatNum]);
+        in.seekg(passengers[row][seatNum] - sizeof(pass));
         in.read( (char *) &pass, sizeof(pass));
         if(pass.flightNum == num)
           out.write( (char *) &pass, sizeof(pass));
