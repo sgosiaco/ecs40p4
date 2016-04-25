@@ -26,17 +26,13 @@ Flights::Flights()
   capacity = 2;
   flights = new Flight*[capacity];
   for(int i = 0; i < capacity; i++)
-  {
     flights[i] = NULL;
-  }
-  readFlights();
 } // readFlights()
 
 void Flights::insert(Flight *in)
 {
   if(capacity == size)
   {
-    cout << "EQuAL\n";
     Flight **f = new Flight*[capacity];
     capacity *= 2;
     for(int i = 0; i < capacity/2; i++)
@@ -50,24 +46,21 @@ void Flights::insert(Flight *in)
   }
   for(int i = 0; i < capacity; i++)
   {
-    //cout << flights[i] << endl;
     if(flights[i] == NULL)
     {
-      //Flight *f = flights[i];
       flights[i] = in;
       size++;
-      //delete f;
       break;
     }
   }
-  cout << size << endl;
   sort(flights, flights + capacity, sortByNum);
 }
 
 void Flights::readFlights()
 {
   int tSize;
-  ifstream inf  ("reservations.txt");
+  //ifstream inf  ("reservations.txt");
+  ifstream inf  ("flights.csv");
   inf >> tSize;
 
   for(int i = 0; i < tSize; i++)
@@ -118,13 +111,15 @@ void Flights::addPassengers()
 Flights::~Flights()
 {
   int i;
-  ofstream outf ("reservations2.txt");
+  //ofstream outf ("reservations2.txt");
+  ofstream outf("flights2.csv");
   outf << size << endl;
 
   for(i = 0; i < size; i++)
-    flights[i]->writeFlight(outf);
+    delete flights[i];
+    //flights[i]->writeFlight(outf);
 
   outf.close();
 
-  delete [] &flights;
+  delete [] flights;
 }

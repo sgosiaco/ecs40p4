@@ -24,10 +24,10 @@ Flight& Flight::operator=(const Flight &in)
     strcpy(destination, in.destination);
   else
     strcpy(destination, "");
-  if(in.plane)
-    plane = new Plane(*in.plane);
-  else
-    plane = NULL;
+  //if(in.plane)
+    //plane = new Plane(*in.plane);
+  //else
+    //plane = NULL;
   return *this;
 }
 
@@ -36,20 +36,26 @@ Flight::Flight()
   flightNum = -1;
   strcpy(origin, "");
   strcpy(destination, "");
-  plane = NULL;
+  //plane = NULL;
 }
 
 void Flight::addPassenger()
 {
+  /**
   if(!plane->addPassenger())
     cout << "We are sorry but Flight #" << flightNum << " is full.\n";
+  */
 
 }  // addPassenger()
 
 
 Flight::~Flight()
 {
-  delete plane;
+  char c = ',';
+  ofstream outf;
+  outf.open("flights2.csv", ios::app);
+  outf << flightNum << c << origin << c << destination << c << 1 << c << 4 << endl;
+  //delete plane;
 }  // freeFlight()
 
 
@@ -68,16 +74,20 @@ void Flight::printFlightInfo() const
 
 void Flight::readFlight( ifstream &inf)
 {
+  int row, width;
   inf >> flightNum;
+  inf.ignore(TEN, ',');
+  inf.getline(origin, MAX_CITY_LENGTH, ',');
+  inf.getline(destination, MAX_CITY_LENGTH, ',');
+  inf >> row;
+  inf.ignore(TEN, ',');
+  inf >> width;
   inf.ignore(TEN, '\n');
-  inf.getline(origin, MAX_CITY_LENGTH);
-  inf.getline(destination, MAX_CITY_LENGTH);
-  plane = new Plane(inf);
+  //plane = new Plane(inf);
 }  // readFlight()
 
 
 void Flight::writeFlight( ofstream &outf) const
 {
-  outf << flightNum << endl << origin << endl << destination << endl;
-  plane->writePlane(outf);
+  //plane->writePlane(outf);
 }  // readFlight()

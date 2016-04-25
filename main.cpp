@@ -47,6 +47,7 @@ int getChoice()
 int main(int argc, char** argv)
 {
   Flights *flight = new Flights();
+  flight->readFlights();
 
   while(getChoice() != DONE)
     flight->addPassengers();
