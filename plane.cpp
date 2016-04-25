@@ -70,8 +70,11 @@ Plane::Plane(ifstream &inf, int num)
       in.read( (char *) &pass, sizeof(pass));
       if(pass.flightNum == num)
       {
-        passengers[pass.row - 1][pass.seat - 'A'] = in.tellg();
-        reserved++;
+        if(!in.eof())
+        {
+          passengers[pass.row - 1][pass.seat - 'A'] = in.tellg();
+          reserved++;
+        }
       }
     }
   }
@@ -250,7 +253,8 @@ void Plane::writePlane(ofstream &outf, int num) const
       {
         in.seekg(passengers[row][seatNum] - sizeof(pass));
         in.read( (char *) &pass, sizeof(pass));
-        out.write( (char *) &pass, sizeof(pass));
+        if(pass.flightNum == num)
+          out.write( (char *) &pass, sizeof(pass));
       }
     }
   }
