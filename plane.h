@@ -23,6 +23,7 @@ public:
   void readIn(int num);
   int addPassenger(int num);
   void removePassenger(int num);
+  void showPassengers();
   void addFlight();
   void removeFlight(int num);
   void writePlane(ofstream &outf, int num) const;

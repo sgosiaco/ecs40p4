@@ -127,8 +127,6 @@ int Plane::addPassenger(int num)
 
   cout << "Please enter the name of the passenger: ";
   cin.getline(pass.name, MAX_NAME_SIZE);
-  //cin >> pass.name;
-  //cin.ignore(10, '\n');
   showGrid();
 
   while(TRUE)
@@ -209,21 +207,10 @@ void Plane::removePassenger(int num)
   fstream in("passengers2.dat", ios::binary | ios::in | ios::out);
   Passenger pass;
   char n[30];
-
-  for(int row = 0; row < rows; row++)
-  {
-    for(int seatNum = 0; seatNum < width; seatNum++)
-    {
-      if(passengers[row][seatNum] != -1)
-      {
-        in.seekg(passengers[row][seatNum] - sizeof(pass));
-        in.read( (char *) &pass, sizeof(pass));
-        cout << pass.name << endl;
-      }
-    }
-  }
+  showPassengers();
   cout << "\nName of passenger to remove: ";
   cin.getline(n, 30);
+
   for(int row = 0; row < rows; row++)
   {
     for(int seatNum = 0; seatNum < width; seatNum++)
@@ -238,12 +225,33 @@ void Plane::removePassenger(int num)
           in.seekp(passengers[row][seatNum] - sizeof(pass));
           in.write( (char *) &pass, sizeof(pass));
           passengers[row][seatNum] = -1;
-        }
-      }
-    }
-  }
+        }//if match
+      }//if not null
+    }//for
+  }//for
+
   in.close();
 }
+
+void Plane::showPassengers()
+{
+  Passenger pass;
+  fstream in("passengers2.dat", ios::binary | ios::in );
+  for(int row = 0; row < rows; row++)
+  {
+    for(int seatNum = 0; seatNum < width; seatNum++)
+    {
+      if(passengers[row][seatNum] != -1)
+      {
+        in.seekg(passengers[row][seatNum] - sizeof(pass));
+        in.read( (char *) &pass, sizeof(pass));
+        cout << pass.name << endl;
+      }//if
+    }//for
+  }//for
+
+  in.close();
+}//showPassengers()
 
 void Plane::removeFlight(int num)
 {
@@ -264,12 +272,13 @@ void Plane::removeFlight(int num)
           in.seekp(passengers[row][seatNum] - sizeof(pass));
           in.write( (char *) &pass, sizeof(pass));
           passengers[row][seatNum] = -1;
-        }
-      }
-    }
-  }
+        }//if match
+      }//if not null
+    }//for
+  }//for
+
   in.close();
-}
+}//removeFlight()
 
 void Plane::writePlane(ofstream &outf, int num) const
 {
@@ -286,11 +295,13 @@ void Plane::writePlane(ofstream &outf, int num) const
       {
         in.seekg(passengers[row][seatNum] - sizeof(pass));
         in.read( (char *) &pass, sizeof(pass));
+        
         if(pass.flightNum == num)
           out.write( (char *) &pass, sizeof(pass));
-      }
-    }
-  }
+      }//if not null
+    }//for
+  }//for
+
   in.close();
   out.close();
-}  // readPlane()
+} //writePlane

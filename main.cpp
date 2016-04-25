@@ -21,7 +21,7 @@ enum
   REMOVE_PASSENGER,
   ADD_FLIGHT,
   REMOVE_FLIGHT
-};
+};//enum
 
 int getChoice()
 {
@@ -78,8 +78,8 @@ int main(int argc, char** argv)
       case REMOVE_FLIGHT:
         flight->removeFlights();
         break;
-    }
-  }
+    }//switch
+  }//while
 
   delete flight;
   //Passenger::read();

@@ -14,6 +14,7 @@ bool sortByNum(const Flight* const &lhs, const Flight* const &rhs)
 {
   if(lhs == NULL)
     return false;
+
   if(rhs == NULL)
     return true;
   return lhs->getFlightNumber() < rhs->getFlightNumber();
@@ -46,6 +47,7 @@ void Flights::insert(Flight *in)
       break;
     }//if null
   }//for
+  
   sort(flights, flights + capacity, sortByNum);
 }//insert()
 
@@ -65,7 +67,7 @@ void Flights::dble()
 
   for(int l = old; l < capacity; l++)
     flights[l] = NULL;
-    
+
   delete [] f;
 }//dble()
 

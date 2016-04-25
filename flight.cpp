@@ -78,5 +78,6 @@ Flight::~Flight()
     plane->writePlane(outf, flightNum);
     outf.close();
   }//if not remove flight
+  
   delete plane;
 }  // ~Flight()

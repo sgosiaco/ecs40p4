@@ -29,26 +29,12 @@ void Passenger::copyPassengers()
     {
       Passenger temp;
       inf.read( (char *) &temp, sizeof(temp));
+
       if(!inf.eof())
         outf.write( (char*) &temp, sizeof(temp));
     }//while not eof
   }//if files open
+  
   inf.close();
   outf.close();
 }//copyPassengers();
-
-void Passenger::read()
-{
-  fstream in("passengers3.dat", ios::binary | ios::in);
-
-  if(in.is_open())
-  {
-    while(!in.eof())
-    {
-      Passenger temp;
-      in.read( (char *) &temp, sizeof(temp));
-      cout << temp.flightNum << " " << temp.row << " " << temp.seat << " " << temp.name << endl;
-    }//while not eof
-  }//if open
-  in.close();
-}//read()

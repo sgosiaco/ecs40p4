@@ -14,10 +14,9 @@ class Passenger
     char seat;
     char name[THIRTY];
   public:
-    static void copyPassengers();
     Passenger();
     Passenger(short fn, short r, char s, char* n);
-    static void read();
+    static void copyPassengers();
 }; // class Passenger
 
 #endif	// PASSENGER_H
