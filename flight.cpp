@@ -54,8 +54,8 @@ Flight::~Flight()
   char c = ',';
   ofstream outf;
   outf.open("flights2.csv", ios::app);
-  outf << flightNum << c << origin << c << destination << c << 1 << c << 4 << endl;
-  //delete plane;
+  outf << flightNum << c << origin << c << destination << c << flush;
+  delete plane;
 }  // freeFlight()
 
 
@@ -74,16 +74,11 @@ void Flight::printFlightInfo() const
 
 void Flight::readFlight( ifstream &inf)
 {
-  int row, width;
   inf >> flightNum;
   inf.ignore(TEN, ',');
   inf.getline(origin, MAX_CITY_LENGTH, ',');
   inf.getline(destination, MAX_CITY_LENGTH, ',');
-  inf >> row;
-  inf.ignore(TEN, ',');
-  inf >> width;
-  inf.ignore(TEN, '\n');
-  //plane = new Plane(inf);
+  plane = new Plane(inf, flightNum);
 }  // readFlight()
 
 

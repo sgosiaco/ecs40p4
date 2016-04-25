@@ -11,73 +11,59 @@
 using namespace std;
 
 #define TRUE 1
+#define TEN 10
 
 Plane::Plane(Plane const &in)
 {
   rows = in.rows;
   width = in.width;
   reserved = in.reserved;
-  passengers = new char** [rows];
+  passengers = new int* [rows];
 
   for(int row = 0; row < rows; row++)
   {
-    passengers[row] = new char*[width];
+    passengers[row] = new int[width];
 
     for(int seatNum = 0; seatNum < width; seatNum++)
-      passengers[row][seatNum] = NULL;
+      passengers[row][seatNum] = -1;
   } // for each row
 
   for(int row = 0; row < rows; row++)
   {
     for(int seatNum = 0; seatNum < width; seatNum++)
     {
-      if(in.passengers[row][seatNum] != NULL)
-      {
-        passengers[row][seatNum] = new char[strlen(in.passengers[row][seatNum]) + 1];
-        strcpy(passengers[row][seatNum], in.passengers[row][seatNum]);
-      }
+      if(in.passengers[row][seatNum] != -1)
+        passengers[row][seatNum] = in.passengers[row][seatNum];
     }
   }  // for row
 }
 
-Plane::Plane(ifstream &inf)
+Plane::Plane(ifstream &inf, int num)
 {
-  int row, numPassenger, seatNum;
-  char seat, name[MAX_NAME_SIZE];
-  inf >> rows >> width >> reserved;
-  passengers = new char** [rows];
+  inf >> rows;
+  inf.ignore(TEN, ',');
+  inf >> width;
+  inf.ignore(TEN, '\n');
+  passengers = new int*[rows];
 
-  for(row = 0; row < rows; row++)
+  for(int row = 0; row < rows; row++)
   {
-    passengers[row] = new char*[width];
+    passengers[row] = new int[width];
 
-    for(seatNum = 0; seatNum < width; seatNum++)
-      passengers[row][seatNum] = NULL;
+    for(int seatNum = 0; seatNum < width; seatNum++)
+      passengers[row][seatNum] = -1;
   } // for each row
-
-  for(numPassenger = 0; numPassenger < reserved; numPassenger++)
-  {
-    inf >> row >> seat;
-    inf.get();
-    inf.getline(name, MAX_NAME_SIZE);
-    seatNum = seat;
-    passengers[row - FIRST_ROW][seatNum - FIRST_SEAT]
-      = new char[strlen(name) + 1];
-    strcpy(passengers[row - FIRST_ROW][seatNum - FIRST_SEAT], name);
-  }  // for each passenger
 }  // Plane()
 
 
 Plane::~Plane()
 {
-  int row, seatNum;
-
-  for(row = 0; row < rows; row++)
+  char c = ',';
+  ofstream outf;
+  outf.open("flights2.csv", ios::app);
+  outf << rows << c << width << endl;
+  for(int row = 0; row < rows; row++)
   {
-    for(seatNum = 0; seatNum < width; seatNum++)
-      if(passengers[row][seatNum] != NULL)
-        delete [] passengers[row][seatNum];
-
     delete [] passengers[row];
   }  // for row
 
@@ -106,15 +92,13 @@ int Plane::addPassenger()
 
     while(cin.get() != '\n');
 
-    if(passengers[row - FIRST_ROW][seatNum] == NULL)
+    if(passengers[row - FIRST_ROW][seatNum] == -1)
       break;
 
     printf("That seat is already occupied.\nPlease try again.\n");
   } // while occupied seat
 
-  passengers[row - FIRST_ROW][seatNum]
-    = new char[strlen(name) + 1];
-  strcpy( passengers[row - FIRST_ROW][seatNum], name);
+  passengers[row - FIRST_ROW][seatNum] = 0;
   reserved++;
   return 1;
 }  // addPassenger()
@@ -158,7 +142,7 @@ void Plane::showGrid() const
     printf("%2d   ", row + 1);
 
     for(seatNum = 0; seatNum < width; seatNum++)
-      if(passengers[row][seatNum])
+      if(passengers[row][seatNum] != -1)
         putchar('X');
       else  // empty seat
         putchar('-');
@@ -177,7 +161,7 @@ void Plane::writePlane(ofstream &outf) const
 
   for(row = 0; row < rows; row++)
     for(seatNum = 0; seatNum < width; seatNum++)
-      if(passengers[row][seatNum] != NULL)
+      if(passengers[row][seatNum] != -1)
         outf << row + FIRST_ROW << char(seatNum + FIRST_SEAT) << ' '
           << passengers[row][seatNum] << endl;
 }  // readPlane()

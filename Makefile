@@ -1,4 +1,4 @@
-airline.out : flight.o flights.o main.o plane.o utilities.o
+airline.out : flight.o flights.o main.o plane.o utilities.o passenger.o
 	g++ -ansi -Wall -g -o airline.out flight.o flights.o main.o plane.o utilities.o
 
 flight.o : flight.cpp flight.h
@@ -16,5 +16,8 @@ plane.o : plane.cpp plane.h utilities.h
 utilities.o : utilities.cpp utilities.h
 	g++ -ansi -Wall -g -c utilities.cpp
 
+passenger.o : passenger.cpp passenger.h
+	g++ -ansi -Wall -g -c passenger.cpp
+
 clean :
-	rm -f airline.out flight.o flights.o main.o  plane.o  utilities.o
+	rm -f airline.out flight.o flights.o main.o  plane.o  utilities.o passenger.o

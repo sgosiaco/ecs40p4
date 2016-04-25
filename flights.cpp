@@ -3,7 +3,6 @@
 #include <iomanip>
 #include <algorithm>
 #include <cstring>
-#include <vector>
 
 #include "flights.h"
 #include "flight.h"
@@ -60,7 +59,7 @@ void Flights::readFlights()
 {
   int tSize;
   //ifstream inf  ("reservations.txt");
-  ifstream inf  ("flights.csv");
+  ifstream inf("flights.csv");
   inf >> tSize;
 
   for(int i = 0; i < tSize; i++)

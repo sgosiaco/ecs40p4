@@ -12,11 +12,11 @@ class Plane
   int rows;
   int width;
   int reserved;
-  char ***passengers;
+  int **passengers;
   int getRow() const;
   void showGrid() const;
 public:
-  Plane(ifstream &inf);
+  Plane(ifstream &inf, int num);
   ~Plane();
   Plane(Plane const &in);
   int addPassenger();
