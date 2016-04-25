@@ -41,10 +41,8 @@ Flight::Flight()
 
 void Flight::addPassenger()
 {
-  /**
-  if(!plane->addPassenger())
+  if(!plane->addPassenger(flightNum))
     cout << "We are sorry but Flight #" << flightNum << " is full.\n";
-  */
 
 }  // addPassenger()
 

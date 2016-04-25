@@ -7,6 +7,7 @@
 #include <iomanip>
 #include "plane.h"
 #include "utilities.h"
+#include "passenger.h"
 
 using namespace std;
 
@@ -44,6 +45,7 @@ Plane::Plane(ifstream &inf, int num)
   inf.ignore(TEN, ',');
   inf >> width;
   inf.ignore(TEN, '\n');
+  reserved = 0;
   passengers = new int*[rows];
 
   for(int row = 0; row < rows; row++)
@@ -53,6 +55,22 @@ Plane::Plane(ifstream &inf, int num)
     for(int seatNum = 0; seatNum < width; seatNum++)
       passengers[row][seatNum] = -1;
   } // for each row
+
+  fstream in("passengers.dat", ios::binary | ios::in);
+  if(in.is_open())
+  {
+    while(!inf.eof())
+    {
+      Passenger pass;
+      inf.read( (char *) &pass, sizeof(pass));
+      cout << pass.flightNum << endl;
+      if(pass.flightNum == num)
+      {
+        passengers[pass.row - 1][pass.seat - 'A'] = inf.tellg();
+        reserved++;
+      }
+    }
+  }
 }  // Plane()
 
 
@@ -72,9 +90,9 @@ Plane::~Plane()
 
 
 
-int Plane::addPassenger()
+int Plane::addPassenger(int num)
 {
-  int row, seatNum;
+  //int row, seatNum;
   char name[MAX_NAME_SIZE];
 
   if(reserved == rows * width)
@@ -83,7 +101,9 @@ int Plane::addPassenger()
   cout << "Please enter the name of the passenger: ";
   cin.getline(name, MAX_NAME_SIZE);
   showGrid();
+  return true;
 
+  /**
   while(TRUE)
   {
     row = getRow();
@@ -101,6 +121,7 @@ int Plane::addPassenger()
   passengers[row - FIRST_ROW][seatNum] = 0;
   reserved++;
   return 1;
+  **/
 }  // addPassenger()
 
 

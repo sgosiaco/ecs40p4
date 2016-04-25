@@ -19,7 +19,7 @@ public:
   Plane(ifstream &inf, int num);
   ~Plane();
   Plane(Plane const &in);
-  int addPassenger();
+  int addPassenger(int num);
   void writePlane(ofstream &outf) const;
 }; // class Plane
 
