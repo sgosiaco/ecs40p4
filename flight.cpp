@@ -57,8 +57,8 @@ Flight::~Flight()
     outf << flightNum << ',' << origin << ',' << destination << ',' << flush;
     plane->writePlane(outf, flightNum);
     outf.close();
-    delete plane;
   }
+  delete plane;
 }  // freeFlight()
 
 
