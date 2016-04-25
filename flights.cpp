@@ -108,15 +108,13 @@ void Flights::addPassengers()
 
 Flights::~Flights()
 {
-  int i;
-  //ofstream outf ("reservations2.txt");
   ofstream outf("flights2.csv");
   outf << size << endl;
 
-  for(i = 0; i < size; i++)
+  for(int i = 0; i < size; i++)
     delete flights[i];
 
   outf.close();
 
-  delete [] flights;
+  delete flights;
 }
