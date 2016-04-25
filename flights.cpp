@@ -166,6 +166,7 @@ void Flights::removeFlights()
       flights[i]->removeFlight();
       delete flights[i];
       size--;
+      flights[i] = NULL;
       sort(flights, flights + capacity, sortByNum);
       break;
     }
