@@ -121,8 +121,9 @@ int Plane::addPassenger(int num)
     return 0;  // false
 
   cout << "Please enter the name of the passenger: ";
-  cin.getline(pass.name, MAX_NAME_SIZE);
-  strtok(pass.name, "\r\n");
+  //cin.getline(pass.name, MAX_NAME_SIZE);
+  cin >> pass.name;
+  cin.ignore(10, '\n');
   showGrid();
 
   while(TRUE)
