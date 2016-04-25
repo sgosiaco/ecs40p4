@@ -32,6 +32,7 @@ void Flight::removePassenger()
 void Flight::removeFlight()
 {
   plane->removeFlight(flightNum);
+  flightNum = -1;
 }
 
 void Flight::addFlight()
@@ -49,11 +50,14 @@ void Flight::addFlight()
 
 Flight::~Flight()
 {
-  ofstream outf;
-  outf.open("flights2.csv", ios::app);
-  outf << flightNum << ',' << origin << ',' << destination << ',' << flush;
-  plane->writePlane(outf, flightNum);
-  outf.close();
+  if(flightNum != -1)
+  {
+    ofstream outf;
+    outf.open("flights2.csv", ios::app);
+    outf << flightNum << ',' << origin << ',' << destination << ',' << flush;
+    plane->writePlane(outf, flightNum);
+    outf.close();
+  }  
   delete plane;
 }  // freeFlight()
 
