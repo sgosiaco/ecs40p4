@@ -29,7 +29,4 @@ class Flight
     void removeFlight();
 } ;
 
-
-
-
 #endif	// FLIGHT_H

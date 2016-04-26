@@ -232,7 +232,7 @@ void Plane::removePassenger(int num)
   in.close();
 }//removePassenger()
 
-void Plane::showPassengers()
+void Plane::showPassengers() const
 {
   Passenger pass;
   fstream in("passengers2.dat", ios::binary | ios::in );

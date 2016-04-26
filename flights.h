@@ -23,7 +23,7 @@ class Flights
   public:
     Flights();
     ~Flights();
-    void insert(Flight *in);
+    void insert(Flight * const in);
     void readFlights();
     void addPassengers();
     void addFlights();
