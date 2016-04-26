@@ -12,6 +12,7 @@ class Flights
 {
   static const int TWO = 2;
   static const int TEN = 10;
+  static const int NEG = -1;
   private:
     int size;
     int capacity;

@@ -58,13 +58,13 @@ void Flights::sorttwo()
 		int j = i;
 
 		while (j > 0 && flights[j]->getFlightNumber()
-          < flights[j-1]->getFlightNumber()
-          && (flights[j]->getFlightNumber() != -1
-          && flights[j - 1]->getFlightNumber() != -1))
+          < flights[j - 1]->getFlightNumber()
+          && (flights[j]->getFlightNumber() != NEG
+          && flights[j - 1]->getFlightNumber() != NEG))
     {
 			  Flight *temp = flights[j];
-			  flights[j] = flights[j-1];
-			  flights[j-1] = temp;
+			  flights[j] = flights[j - 1];
+			  flights[j - 1] = temp;
 			  j--;
 		}//while
 	}//for
@@ -209,7 +209,7 @@ void Flights::sortthree()
 {
   for(int i = 0; i < size; i++)
   {
-    if(flights[i]->getFlightNumber() == -1)
+    if(flights[i]->getFlightNumber() == NEG)
     {
       Flight *temp = flights[i];
       flights[i] = flights[size];
@@ -227,7 +227,7 @@ Flights::~Flights()
   ofstream outf("flights2.csv");
   outf << size << endl;
 
-  for(int i = 0; i < size; i++)
+  for(int i = 0; i < capacity; i++)
     delete flights[i];
 
   outf.close();
