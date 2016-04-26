@@ -59,29 +59,31 @@ int main(int argc, char** argv)
 {
   int in = 0;
   Passenger::copyPassengers();
-  Flights *flight = new Flights();
-  flight->readFlights();
+  //Flights *flight = new Flights();
+  Flights flight;
+  //flight->readFlights();
+  flight.readFlights();
 
   while((in = getChoice()) != EXIT)
   {
     switch(in)
     {
       case ADD_PASSENGER:
-        flight->addPassengers();
+        flight.addPassengers();
         break;
       case REMOVE_PASSENGER:
-        flight->removePassengers();
+        flight.removePassengers();
         break;
       case ADD_FLIGHT:
-        flight->addFlights();
+        flight.addFlights();
         break;
       case REMOVE_FLIGHT:
-        flight->removeFlights();
+        flight.removeFlights();
         break;
     }//switch
   }//while
 
-  delete flight;
+  //delete flight;
   //Passenger::read();
   return 0;
 } // main())
