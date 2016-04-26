@@ -53,20 +53,20 @@ void Flights::insert(Flight *in)
 
 void Flights::sorttwo()
 {
-	for (int i = 0; i < capacity; i++)
+  for (int i = 0; i < capacity; i++)
   {
-		int j = i;
+    int j = i;
 
-		while (j > 0 && flights[j]->getFlightNumber()
-          < flights[j - 1]->getFlightNumber()
-          && (flights[j]->getFlightNumber() != NEG
-          && flights[j - 1]->getFlightNumber() != NEG))
+    while (j > 0 && flights[j]->getFlightNumber()
+           < flights[j - 1]->getFlightNumber()
+           && (flights[j]->getFlightNumber() != NEG
+           && flights[j - 1]->getFlightNumber() != NEG))
     {
-			  Flight *temp = flights[j];
-			  flights[j] = flights[j - 1];
-			  flights[j - 1] = temp;
-			  j--;
-		}//while
+      Flight *temp = flights[j];
+      flights[j] = flights[j - 1];
+      flights[j - 1] = temp;
+      j--;
+    }//while
   }//for
 }//sorttwo
 
