@@ -38,7 +38,7 @@ void Flights::insert(Flight *in)
 
   for(int i = 0; i < capacity; i++)
   {
-    if(flights[i]->getFlightNumber() == -1)
+    if(flights[i]->getFlightNumber() == NEG)
     {
       Flight *temp = flights[i];
       flights[i] = in;
@@ -67,7 +67,7 @@ void Flights::sorttwo()
 			  flights[j - 1] = temp;
 			  j--;
 		}//while
-	}//for
+  }//for
 }//sorttwo
 
 void Flights::dble()
