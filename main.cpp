@@ -59,9 +59,7 @@ int main(int argc, char** argv)
 {
   int in = 0;
   Passenger::copyPassengers();
-  //Flights *flight = new Flights();
   Flights flight;
-  //flight->readFlights();
   flight.readFlights();
 
   while((in = getChoice()) != EXIT)
@@ -83,7 +81,5 @@ int main(int argc, char** argv)
     }//switch
   }//while
 
-  //delete flight;
-  //Passenger::read();
   return 0;
 } // main())
