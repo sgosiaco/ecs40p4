@@ -23,7 +23,7 @@ class Plane
     int **passengers;
     int getRow() const;
     void showGrid() const;
-    void showPassengers();
+    void showPassengers() const;
     void readIn(int num);
   public:
     Plane();

@@ -8,16 +8,6 @@
 
 using namespace std;
 
-bool sortByNum(const Flight* const &lhs, const Flight* const &rhs)
-{
-  if(lhs == NULL)
-    return false;
-
-  if(rhs == NULL)
-    return true;
-  return lhs->getFlightNumber() < rhs->getFlightNumber();
-}//sortByNum
-
 Flights::Flights()
 {
   size = 0;
@@ -28,7 +18,7 @@ Flights::Flights()
     flights[i] = new Flight();
 } // readFlights()
 
-void Flights::insert(Flight *in)
+void Flights::insert(Flight * const in)
 {
   if(capacity == size)
   {
