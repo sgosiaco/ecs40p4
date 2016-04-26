@@ -18,6 +18,7 @@ class Flights
     Flight **flights;
     void dble();
     void sorttwo();
+    void sortthree();
   public:
     Flights();
     ~Flights();

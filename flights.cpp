@@ -2,7 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <algorithm>
 #include <cstring>
 
 #include "flights.h"
@@ -26,7 +25,7 @@ Flights::Flights()
   flights = new Flight*[capacity];
 
   for(int i = 0; i < capacity; i++)
-    flights[i] = NULL;
+    flights[i] = new Flight();
 } // readFlights()
 
 void Flights::insert(Flight *in)
@@ -39,15 +38,16 @@ void Flights::insert(Flight *in)
 
   for(int i = 0; i < capacity; i++)
   {
-    if(flights[i] == NULL)
+    if(flights[i]->getFlightNumber() == -1)
     {
+      Flight *temp = flights[i];
       flights[i] = in;
+      delete temp;
       size++;
       break;
     }//if null
   }//for
 
-  //sort(flights, flights + capacity, sortByNum);
   sorttwo();
 }//insert()
 
@@ -57,15 +57,18 @@ void Flights::sorttwo()
   {
 		int j = i;
 
-		while (j > 0 && flights[j]->getFlightNumber() < flights[j-1]->getFlightNumber())
+		while (j > 0 && flights[j]->getFlightNumber()
+          < flights[j-1]->getFlightNumber()
+          && (flights[j]->getFlightNumber() != -1
+          && flights[j - 1]->getFlightNumber() != -1))
     {
 			  Flight *temp = flights[j];
 			  flights[j] = flights[j-1];
 			  flights[j-1] = temp;
 			  j--;
-		}
-	}
-}
+		}//while
+	}//for
+}//sorttwo
 
 void Flights::dble()
 {
@@ -82,7 +85,7 @@ void Flights::dble()
     flights[k] = f[k];
 
   for(int l = old; l < capacity; l++)
-    flights[l] = NULL;
+    flights[l] = new Flight();
 
   delete [] f;
 }//dble()
@@ -195,13 +198,27 @@ void Flights::removeFlights()
       flights[i]->removeFlight();
       delete flights[i];
       size--;
-      flights[i] = NULL;
-      sorttwo();
-      //sort(flights, flights + capacity, sortByNum);
+      flights[i] = new Flight();
+      sortthree();
       break;
     }//if match
   }//for
 }//removeFlights()
+
+void Flights::sortthree()
+{
+  for(int i = 0; i < size; i++)
+  {
+    if(flights[i]->getFlightNumber() == -1)
+    {
+      Flight *temp = flights[i];
+      flights[i] = flights[size];
+      flights[size] = temp;
+      sorttwo();
+      break;
+    }//if
+  }//for
+}//sortthree
 
 Flights::~Flights()
 {
