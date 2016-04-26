@@ -47,8 +47,25 @@ void Flights::insert(Flight *in)
     }//if null
   }//for
 
-  sort(flights, flights + capacity, sortByNum);
+  //sort(flights, flights + capacity, sortByNum);
+  sorttwo();
 }//insert()
+
+void Flights::sorttwo()
+{
+	for (int i = 0; i < capacity; i++)
+  {
+		int j = i;
+
+		while (j > 0 && flights[j]->getFlightNumber() < flights[j-1]->getFlightNumber())
+    {
+			  Flight *temp = flights[j];
+			  flights[j] = flights[j-1];
+			  flights[j-1] = temp;
+			  j--;
+		}
+	}
+}
 
 void Flights::dble()
 {
@@ -179,7 +196,8 @@ void Flights::removeFlights()
       delete flights[i];
       size--;
       flights[i] = NULL;
-      sort(flights, flights + capacity, sortByNum);
+      sorttwo();
+      //sort(flights, flights + capacity, sortByNum);
       break;
     }//if match
   }//for

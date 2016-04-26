@@ -17,6 +17,7 @@ class Flights
     int capacity;
     Flight **flights;
     void dble();
+    void sorttwo();
   public:
     Flights();
     ~Flights();
