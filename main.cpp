@@ -11,8 +11,8 @@
 
 using namespace std;
 
-static const int DONE = 0;
-static const int MAX_CHOICE = 4;
+const int DONE = 0;
+const int MAX_CHOICE = 4;
 
 enum
 {

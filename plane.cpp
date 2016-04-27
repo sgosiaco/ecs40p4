@@ -174,29 +174,27 @@ int Plane::getRow() const
 
 void Plane::showGrid() const
 {
-  int row, seatNum = 0;
+  cout << "ROW# ";
 
-  printf("ROW# ");
-
-  for(seatNum = 0; seatNum < width; seatNum++)
+  for(int seatNum = 0; seatNum < width; seatNum++)
     cout << char(seatNum + FIRST_SEAT);
 
-  putchar('\n');
+  cout.put('\n');
 
-  for(row = 0; row < rows; row++)
+  for(int row = 0; row < rows; row++)
   {
-    printf("%2d   ", row + 1);
+    cout << right << setw(2) << row + 1 << "   ";
 
-    for(seatNum = 0; seatNum < width; seatNum++)
+    for(int seatNum = 0; seatNum < width; seatNum++)
       if(passengers[row][seatNum] != NEG)
-        putchar('X');
+        cout.put('X');
       else  // empty seat
-        putchar('-');
+        cout.put('-');
 
-    putchar('\n');
+    cout.put('\n');
   }  // for each row
 
-  printf("\nX = reserved.\n");
+  cout << "\nX = reserved.\n";
 }  // showGrid()
 
 void Plane::removePassenger(int num)
