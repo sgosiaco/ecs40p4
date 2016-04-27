@@ -138,7 +138,7 @@ int Plane::addPassenger(int num)
     if(passengers[pass.row - FIRST_ROW][pass.seat - 'A'] == NEG)
       break;
 
-    printf("That seat is already occupied.\nPlease try again.\n");
+    cout << "That seat is already occupied.\nPlease try again.\n";
   } // while occupied seat
 
   fstream out("passengers2.dat", ios::binary | ios::out | ios::app);
