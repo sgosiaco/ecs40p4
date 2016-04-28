@@ -96,7 +96,7 @@ void Flights::readFlights()
   inf.close();
 }//readFlights()
 
-void Flights::addPassengers()
+void Flights::addPassengers() const
 {
   int i, flightNumber;
 
@@ -145,7 +145,7 @@ void Flights::addFlights()
   insert(f);
 }//addFlights()
 
-void Flights::removePassengers()
+void Flights::removePassengers() const
 {
   int num;
   cout << "Existing Flights:\n\n";

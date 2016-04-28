@@ -25,9 +25,9 @@ class Flights
     ~Flights();
     void insert(Flight * const in);
     void readFlights();
-    void addPassengers();
+    void addPassengers() const;
     void addFlights();
-    void removePassengers();
+    void removePassengers() const;
     void removeFlights();
 } ;
 

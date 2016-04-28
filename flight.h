@@ -18,14 +18,14 @@ class Flight
     char destination[MAX_CITY_LENGTH];
     Plane *plane;
   public:
-    void addPassenger();
+    void addPassenger() const;
     ~Flight();
     Flight();
     int getFlightNumber() const;
     void printFlightInfo() const;
     void readFlight(ifstream &inf);
     void addFlight();
-    void removePassenger();
+    void removePassenger() const;
     void removeFlight();
 } ;
 

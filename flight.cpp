@@ -32,14 +32,14 @@ void Flight::printFlightInfo() const
     << origin << ' '  << destination << endl;
 }  // printFlightInfo()
 
-void Flight::addPassenger()
+void Flight::addPassenger() const
 {
   if(!plane->addPassenger(flightNum))
     cout << "We are sorry but Flight #" << flightNum << " is full.\n";
 
 }  // addPassenger()
 
-void Flight::removePassenger()
+void Flight::removePassenger() const
 {
   plane->removePassenger(flightNum);
 }//removePassenger()
